@@ -1,0 +1,44 @@
+type AccountLiquidated @entity {
+  id: ID!
+  account: Bytes! # address
+  liquidator: Bytes! # address
+}
+
+type Deposit @entity {
+  id: ID!
+  account: Bytes! # address
+  tokenAddress: Bytes! # address
+  amount: BigInt! # uint256
+}
+
+type FundingAccrued @entity {
+  id: ID!
+  tradeId: BigInt! # uint256
+  account: Bytes! # address
+  market: String! # string
+  amount_value: BigInt! # uint256
+  amount_sign: Boolean! # bool
+  fundingRate_value: BigInt! # uint256
+  fundingRate_sign: Boolean! # bool
+}
+
+type SyntheticBalanceUpdate @entity {
+  id: ID!
+  tradeId: BigInt! # uint256
+  account: Bytes! # address
+  assetBalance_market: String! # string
+  assetBalance_sign: Boolean! # bool
+  assetBalance_amount_value: BigInt! # uint256
+  assetBalance_amount_sign: Boolean! # bool
+  assetBalance_cost_value: BigInt! # uint256
+  assetBalance_cost_sign: Boolean! # bool
+  assetBalance_cachedFunding_value: BigInt! # uint256
+  assetBalance_cachedFunding_sign: Boolean! # bool
+}
+
+type Withdraw @entity {
+  id: ID!
+  account: Bytes! # address
+  tokenAddress: Bytes! # address
+  amount: BigInt! # uint256
+}

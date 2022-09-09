@@ -1,0 +1,35 @@
+specVersion: 0.0.1
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum
+    name: Swap
+    network: goerli
+    source:
+      address: "0x573e754b997EBd2d6bf34bA177b8adcf443c2896"
+      abi: Swap
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - AccountLiquidated
+        - Deposit
+        - FundingAccrued
+        - SyntheticBalanceUpdate
+        - Withdraw
+      abis:
+        - name: Swap
+          file: ./abis/Swap.json
+      eventHandlers:
+        - event: AccountLiquidated(indexed address,address)
+          handler: handleAccountLiquidated
+        - event: Deposit(indexed address,indexed address,uint256)
+          handler: handleDeposit
+        - event: FundingAccrued(indexed uint256,indexed address,string,(uint256,bool),(uint256,bool))
+          handler: handleFundingAccrued
+        - event: SyntheticBalanceUpdate(indexed uint256,indexed address,(string,bool,(uint256,bool),(uint256,bool),(uint256,bool)))
+          handler: handleSyntheticBalanceUpdate
+        - event: Withdraw(indexed address,indexed address,uint256)
+          handler: handleWithdraw
+      file: ./src/swap.ts
